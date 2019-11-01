@@ -98,8 +98,6 @@ public final class JCMenuBar extends JCFocusableElement<JCMenuStyle> {
                     }
                 }
             }
-
-            return false;
         } else if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE && !popupList.isEmpty()) {
             popupList.remove(popupList.size() - 1);
             selectMenu(null);
@@ -107,7 +105,7 @@ public final class JCMenuBar extends JCFocusableElement<JCMenuStyle> {
             return true;
         }
 
-        return false;
+        return super.onKey(e);
     }
 
     @Override
@@ -207,11 +205,6 @@ public final class JCMenuBar extends JCFocusableElement<JCMenuStyle> {
         }
 
         @Override
-        protected boolean onKey(NativeKeyEvent nativeKeyEvent) {
-            return false;
-        }
-
-        @Override
         protected InternalMenuLabelStyle extractStyleFromTheme(JCTheme theme) {
             final InternalMenuLabelStyle style = new InternalMenuLabelStyle();
             style.setColor(theme.getMenuStyle().getColor());
@@ -257,11 +250,6 @@ public final class JCMenuBar extends JCFocusableElement<JCMenuStyle> {
             JConsole.print(getStyle().getSeparator().getLeftCross());
             JConsole.print(StringUtils.repeat(getStyle().getSeparator().getLine() + "", getParent().getPrefWidth() - 2));
             JConsole.print(getStyle().getSeparator().getRightCross());
-        }
-
-        @Override
-        protected boolean onKey(NativeKeyEvent nativeKeyEvent) {
-            return false;
         }
 
         @Override

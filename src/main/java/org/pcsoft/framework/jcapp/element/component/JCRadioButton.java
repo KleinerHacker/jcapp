@@ -1,21 +1,21 @@
 package org.pcsoft.framework.jcapp.element.component;
 
 import org.pcsoft.framework.jcapp.element.JCToggleElement;
-import org.pcsoft.framework.jcapp.style.component.JCCheckBoxStyle;
+import org.pcsoft.framework.jcapp.style.component.JCRadioButtonStyle;
 import org.pcsoft.framework.jcapp.style.theme.JCTheme;
 import org.pcsoft.framework.jcapp.utils.JConsoleUtils;
 import org.pcsoft.framework.jconsole.JConsole;
 
-public final class JCCheckBox extends JCToggleElement<JCCheckBoxStyle> {
-    public JCCheckBox() {
+public final class JCRadioButton extends JCToggleElement<JCRadioButtonStyle> {
+    public JCRadioButton() {
     }
 
-    public JCCheckBox(String text) {
+    public JCRadioButton(String text) {
         this();
         setText(text);
     }
 
-    public JCCheckBox(String text, char mnemonic) {
+    public JCRadioButton(String text, char mnemonic) {
         this(text);
         setMnemonic(mnemonic);
     }
@@ -46,12 +46,12 @@ public final class JCCheckBox extends JCToggleElement<JCCheckBoxStyle> {
     }
 
     @Override
-    protected JCCheckBoxStyle extractStyleFromTheme(JCTheme theme) {
-        return theme.getCheckBoxStyle();
+    protected JCRadioButtonStyle extractStyleFromTheme(JCTheme theme) {
+        return theme.getRadioButtonStyle();
     }
 
     @Override
-    protected JCCheckBoxStyle getDefaultStyle() {
-        return new JCCheckBoxStyle();
+    protected JCRadioButtonStyle getDefaultStyle() {
+        return new JCRadioButtonStyle();
     }
 }

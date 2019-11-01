@@ -1,12 +1,13 @@
-package org.pcsoft.framework.jcapp.style;
+package org.pcsoft.framework.jcapp.style.component;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import org.pcsoft.framework.jcapp.style.JCToggleStyle;
 import org.pcsoft.framework.jcapp.type.JCSelector;
 import org.pcsoft.framework.jconsole.type.JConsoleColor;
 import org.pcsoft.framework.jconsole.type.JConsoleColorPair;
 
-public abstract class JCSelectorStyle extends JCMnemonicStyle {
+public final class JCRadioButtonStyle extends JCToggleStyle {
     private final ObjectProperty<JCSelector> selector = new SimpleObjectProperty<>(JCSelector.CORNER);
     private final ObjectProperty<JConsoleColorPair> selectorColor = new SimpleObjectProperty<>(
             new JConsoleColorPair(

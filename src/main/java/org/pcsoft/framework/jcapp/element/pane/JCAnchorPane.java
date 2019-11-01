@@ -2,7 +2,6 @@ package org.pcsoft.framework.jcapp.element.pane;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import org.jnativehook.keyboard.NativeKeyEvent;
 import org.pcsoft.framework.jcapp.element.JCElement;
 import org.pcsoft.framework.jcapp.style.pane.JCAnchorPaneStyle;
 import org.pcsoft.framework.jcapp.style.theme.JCTheme;
@@ -46,11 +45,6 @@ public final class JCAnchorPane extends JCPane<JCAnchorPaneStyle> {
                 element.measure(JCBounds.createWithPoints(getBounds().getLeftTop().add(getLeftTop(element)), getBounds().getRightBottom()));
             }
         }
-    }
-
-    @Override
-    protected boolean onKey(NativeKeyEvent nativeKeyEvent) {
-        return false;
     }
 
     @Override

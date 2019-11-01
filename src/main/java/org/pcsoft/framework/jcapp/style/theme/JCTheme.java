@@ -3,6 +3,7 @@ package org.pcsoft.framework.jcapp.style.theme;
 import org.pcsoft.framework.jcapp.style.*;
 import org.pcsoft.framework.jcapp.style.component.JCCheckBoxStyle;
 import org.pcsoft.framework.jcapp.style.component.JCLabelStyle;
+import org.pcsoft.framework.jcapp.style.component.JCRadioButtonStyle;
 import org.pcsoft.framework.jcapp.style.frame.JCDialogStyle;
 import org.pcsoft.framework.jcapp.style.frame.JCPopupStyle;
 import org.pcsoft.framework.jcapp.style.frame.JCWindowStyle;
@@ -21,6 +22,7 @@ public final class JCTheme {
 
     private JCLabelStyle labelStyle = new JCLabelStyle();
     private JCCheckBoxStyle checkBoxStyle = new JCCheckBoxStyle();
+    private JCRadioButtonStyle radioButtonStyle = new JCRadioButtonStyle();
 
     public JCDesktopStyle getDesktopStyle() {
         return desktopStyle;
@@ -84,5 +86,13 @@ public final class JCTheme {
 
     public void setCheckBoxStyle(JCCheckBoxStyle checkBoxStyle) {
         this.checkBoxStyle = checkBoxStyle;
+    }
+
+    public JCRadioButtonStyle getRadioButtonStyle() {
+        return radioButtonStyle;
+    }
+
+    public void setRadioButtonStyle(JCRadioButtonStyle radioButtonStyle) {
+        this.radioButtonStyle = radioButtonStyle;
     }
 }

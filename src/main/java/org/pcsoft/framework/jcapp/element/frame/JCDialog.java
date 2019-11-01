@@ -1,6 +1,5 @@
 package org.pcsoft.framework.jcapp.element.frame;
 
-import org.jnativehook.keyboard.NativeKeyEvent;
 import org.pcsoft.framework.jcapp.style.frame.JCDialogStyle;
 import org.pcsoft.framework.jcapp.style.theme.JCTheme;
 import org.pcsoft.framework.jcapp.type.JCHorizontalAlignment;
@@ -21,11 +20,6 @@ public final class JCDialog extends JCTitledFrame<JCDialogStyle> {
         this(title);
         setPrefWidth(width);
         setPrefHeight(height);
-    }
-
-    @Override
-    protected boolean onKey(NativeKeyEvent nativeKeyEvent) {
-        return false;
     }
 
     @Override

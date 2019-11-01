@@ -1,6 +1,5 @@
 package org.pcsoft.framework.jcapp.element.frame;
 
-import org.jnativehook.keyboard.NativeKeyEvent;
 import org.pcsoft.framework.jcapp.style.frame.JCWindowStyle;
 import org.pcsoft.framework.jcapp.style.theme.JCTheme;
 
@@ -18,11 +17,6 @@ public class JCWindow extends JCTitledFrame<JCWindowStyle> {
         this(title);
         setPrefWidth(width);
         setPrefHeight(height);
-    }
-
-    @Override
-    protected boolean onKey(NativeKeyEvent nativeKeyEvent) {
-        return false;
     }
 
     @Override

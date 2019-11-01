@@ -185,7 +185,7 @@ public final class JCDesktop extends JCPane<JCDesktopStyle> {
                 return true;
         }
 
-        return false;
+        return super.onKey(nativeKeyEvent);
     }
     //endregion
 

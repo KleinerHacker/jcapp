@@ -142,6 +142,50 @@ public final class JCThemes {
                 )
         );
         TURBO_PASCAL.getCheckBoxStyle().setSelector(JCSelector.CORNER);
+        TURBO_PASCAL.getCheckBoxStyle().setCheckingColor(
+                new JConsoleColorPair(
+                        JConsoleColor.createHighlighted(JConsoleColor.ColorValue.Yellow),
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.Green)
+                )
+        );
+
+        TURBO_PASCAL.getRadioButtonStyle().setColor(
+                new JConsoleColorPair(
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.Black),
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.White)
+                )
+        );
+        TURBO_PASCAL.getRadioButtonStyle().setMnemonicColor(
+                new JConsoleColorPair(
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.Red),
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.White)
+                )
+        );
+        TURBO_PASCAL.getRadioButtonStyle().setFocusColor(
+                new JConsoleColorPair(
+                        JConsoleColor.createHighlighted(JConsoleColor.ColorValue.White),
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.White)
+                )
+        );
+        TURBO_PASCAL.getRadioButtonStyle().setDisableColor(
+                new JConsoleColorPair(
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.Black),
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.White)
+                )
+        );
+        TURBO_PASCAL.getRadioButtonStyle().setSelectorColor(
+                new JConsoleColorPair(
+                        JConsoleColor.createHighlighted(JConsoleColor.ColorValue.White),
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.Green)
+                )
+        );
+        TURBO_PASCAL.getRadioButtonStyle().setSelector(JCSelector.ROUND);
+        TURBO_PASCAL.getRadioButtonStyle().setCheckingColor(
+                new JConsoleColorPair(
+                        JConsoleColor.createHighlighted(JConsoleColor.ColorValue.Yellow),
+                        JConsoleColor.createDefault(JConsoleColor.ColorValue.Green)
+                )
+        );
     }
 
     private JCThemes() {

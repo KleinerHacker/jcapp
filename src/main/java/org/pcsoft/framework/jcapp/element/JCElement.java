@@ -5,23 +5,56 @@ import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.*;
 import org.apache.commons.lang.NotImplementedException;
 import org.jnativehook.keyboard.NativeKeyEvent;
+import org.pcsoft.framework.jcapp.base.InputMember;
 import org.pcsoft.framework.jcapp.base.InvalidationMember;
 import org.pcsoft.framework.jcapp.style.JCStyle;
 import org.pcsoft.framework.jcapp.style.theme.JCTheme;
 import org.pcsoft.framework.jcapp.type.*;
+import org.pcsoft.framework.jfex.commons.util.Properties;
 
-public abstract class JCElement<S extends JCStyle> implements InvalidationMember {
+public abstract class JCElement<S extends JCStyle> implements InvalidationMember, InputMember {
+    private final StringProperty id = new SimpleStringProperty();
+
     private final ReadOnlyIntegerWrapper leftWrapper = new ReadOnlyIntegerWrapper(), topWrapper = new ReadOnlyIntegerWrapper();
     private final ReadOnlyIntegerWrapper widthWrapper = new ReadOnlyIntegerWrapper(), heightWrapper = new ReadOnlyIntegerWrapper();
     private final ReadOnlyIntegerProperty left = leftWrapper.getReadOnlyProperty(), top = topWrapper.getReadOnlyProperty();
+    private final ObjectBinding<JCPoint> point = Bindings.createObjectBinding(() -> new JCPoint(left.get(), top.get()), left, top);
     private final ReadOnlyIntegerProperty width = widthWrapper.getReadOnlyProperty(), height = heightWrapper.getReadOnlyProperty();
+    private final ObjectBinding<JCSize> size = Bindings.createObjectBinding(() -> new JCSize(width.get(), height.get()), width, height);
+    private final ObjectBinding<JCBounds> bounds = Bindings.createObjectBinding(
+            () -> JCBounds.createWithSize(getLeft(), getTop(), getWidth(), getHeight()),
+            left, top, width, height
+    );
 
     private final IntegerProperty prefWidth = new SimpleIntegerProperty(Integer.MAX_VALUE), prefHeight = new SimpleIntegerProperty(Integer.MAX_VALUE);
+    private final ObjectProperty<JCSize> prefSize = Properties.createProperty(
+            () -> new JCSize(prefWidth.get(), prefHeight.get()),
+            s -> {
+                prefWidth.set(s.getWidth());
+                prefHeight.set(s.getHeight());
+            },
+            prefWidth, prefHeight
+    );
     private final IntegerProperty minWidth = new SimpleIntegerProperty(1), minHeight = new SimpleIntegerProperty(1);
+    private final ObjectProperty<JCSize> minSize = Properties.createProperty(
+            () -> new JCSize(minWidth.get(), minHeight.get()),
+            s -> {
+                minWidth.set(s.getWidth());
+                minHeight.set(s.getHeight());
+            },
+            minWidth, minHeight
+    );
     private final IntegerProperty maxWidth = new SimpleIntegerProperty(Integer.MAX_VALUE), maxHeight = new SimpleIntegerProperty(Integer.MAX_VALUE);
+    private final ObjectProperty<JCSize> maxSize = Properties.createProperty(
+            () -> new JCSize(maxWidth.get(), maxHeight.get()),
+            s -> {
+                maxWidth.set(s.getWidth());
+                maxHeight.set(s.getHeight());
+            },
+            maxWidth, maxHeight
+    );
     private final ObjectProperty<JCHorizontalAlignment> horizontalAlignment = new SimpleObjectProperty<>(JCHorizontalAlignment.Stretch);
     private final ObjectProperty<JCVerticalAlignment> verticalAlignment = new SimpleObjectProperty<>(JCVerticalAlignment.Stretch);
-    private final ObjectBinding<JCBounds> bounds;
 
     private final BooleanProperty visible = new SimpleBooleanProperty(true);
 
@@ -45,10 +78,6 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
         maxHeight.addListener(o -> invalidate());
         horizontalAlignment.addListener(o -> invalidate());
         verticalAlignment.addListener(o -> invalidate());
-        bounds = Bindings.createObjectBinding(
-                () -> JCBounds.createWithSize(getLeft(), getTop(), getWidth(), getHeight()),
-                left, top, width, height
-        );
 
         visible.addListener(o -> invalidate());
 
@@ -70,6 +99,18 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
             refresh();
         });
         setStyle(getDefaultStyle());
+    }
+
+    public String getId() {
+        return id.get();
+    }
+
+    public StringProperty idProperty() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id.set(id);
     }
 
     public int getLeft() {
@@ -96,6 +137,14 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
         topWrapper.set(top);
     }
 
+    public JCPoint getPoint() {
+        return point.get();
+    }
+
+    public ObjectBinding<JCPoint> pointProperty() {
+        return point;
+    }
+
     public int getWidth() {
         return width.get();
     }
@@ -118,6 +167,22 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
 
     protected void setHeight(int height) {
         heightWrapper.set(height);
+    }
+
+    public JCSize getSize() {
+        return size.get();
+    }
+
+    public ObjectBinding<JCSize> sizeProperty() {
+        return size;
+    }
+
+    public JCBounds getBounds() {
+        return bounds.get();
+    }
+
+    public ObjectBinding<JCBounds> boundsProperty() {
+        return bounds;
     }
 
     public int getPrefWidth() {
@@ -144,6 +209,18 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
         this.prefHeight.set(prefHeight);
     }
 
+    public JCSize getPrefSize() {
+        return prefSize.get();
+    }
+
+    public ObjectProperty<JCSize> prefSizeProperty() {
+        return prefSize;
+    }
+
+    public void setPrefSize(JCSize prefSize) {
+        this.prefSize.set(prefSize);
+    }
+
     public int getMinWidth() {
         return minWidth.get();
     }
@@ -166,6 +243,18 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
 
     public void setMinHeight(int minHeight) {
         this.minHeight.set(minHeight);
+    }
+
+    public JCSize getMinSize() {
+        return minSize.get();
+    }
+
+    public ObjectProperty<JCSize> minSizeProperty() {
+        return minSize;
+    }
+
+    public void setMinSize(JCSize minSize) {
+        this.minSize.set(minSize);
     }
 
     public int getMaxWidth() {
@@ -192,6 +281,18 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
         this.maxHeight.set(maxHeight);
     }
 
+    public JCSize getMaxSize() {
+        return maxSize.get();
+    }
+
+    public ObjectProperty<JCSize> maxSizeProperty() {
+        return maxSize;
+    }
+
+    public void setMaxSize(JCSize maxSize) {
+        this.maxSize.set(maxSize);
+    }
+
     public JCHorizontalAlignment getHorizontalAlignment() {
         return horizontalAlignment.get();
     }
@@ -214,14 +315,6 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
 
     public void setVerticalAlignment(JCVerticalAlignment verticalAlignment) {
         this.verticalAlignment.set(verticalAlignment);
-    }
-
-    public JCBounds getBounds() {
-        return bounds.get();
-    }
-
-    public ObjectBinding<JCBounds> boundsProperty() {
-        return bounds;
     }
 
     public boolean isVisible() {
@@ -325,6 +418,7 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
 
     /**
      * Measure the element, see {@link #leftProperty()}, {@link #topProperty()}, {@link #widthProperty()}, {@link #heightProperty()}
+     *
      * @param bounds Bounds of area to fill with this element
      * @return The new bounds of this element
      */
@@ -409,13 +503,18 @@ public abstract class JCElement<S extends JCStyle> implements InvalidationMember
 
     //region Style
     protected abstract S extractStyleFromTheme(JCTheme theme);
+
     protected abstract S getDefaultStyle();
     //endregion
 
     //region Input
-    public final boolean fireKey(NativeKeyEvent nativeKeyEvent)  {
+    @Override
+    public final boolean fireKey(NativeKeyEvent nativeKeyEvent) {
         return onKey(nativeKeyEvent);
     }
-    protected abstract boolean onKey(NativeKeyEvent nativeKeyEvent);
+
+    protected boolean onKey(NativeKeyEvent nativeKeyEvent) {
+        return false;
+    }
     //endregion
 }

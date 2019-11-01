@@ -21,6 +21,7 @@ public final class JCLabel extends JCElement<JCLabelStyle> implements MnemonicMe
     private final ObjectProperty<JCFocusableElement> linkedElement = new SimpleObjectProperty<>();
 
     private final BooleanBinding focused;
+    private final BooleanBinding disabled;
 
     public JCLabel() {
         text.addListener(o -> invalidate());
@@ -28,6 +29,8 @@ public final class JCLabel extends JCElement<JCLabelStyle> implements MnemonicMe
 
         focused = Bindings.createBooleanBinding(() -> linkedElement.get() != null && linkedElement.get().isFocused(), linkedElement);
         focused.addListener(o -> refresh());
+        disabled = Bindings.createBooleanBinding(() -> linkedElement.get() != null && linkedElement.get().isDisabled(), linkedElement);
+        disabled.addListener(o -> refresh());
     }
 
     public JCLabel(String text) {
@@ -90,23 +93,45 @@ public final class JCLabel extends JCElement<JCLabelStyle> implements MnemonicMe
         return focused;
     }
 
+    public boolean isDisabled() {
+        return disabled.get();
+    }
+
+    public BooleanBinding disabledProperty() {
+        return disabled;
+    }
+
     @Override
     protected void repaint() {
         JConsole.CURSOR.gotoXY(getLeft(), getTop());
-        JConsole.VISUAL.setColor(getStyle().getColor());
-        JConsoleUtils.printAccentString(getText(), getMnemonic(), getStyle().getMnemonicColor());
+
+        if (isDisabled()) {
+            JConsole.VISUAL.setColor(getStyle().getDisableColor());
+        }
+        else if (isFocused()) {
+            JConsole.VISUAL.setColor(getStyle().getFocusColor());
+        }
+        else {
+            JConsole.VISUAL.setColor(getStyle().getColor());
+        }
+
+        if (!isDisabled() && !isFocused()) {
+            JConsoleUtils.printAccentString(getText(), getMnemonic(), getStyle().getMnemonicColor());
+        } else {
+            JConsole.print(getText());
+        }
     }
 
     @Override
     protected boolean onKey(NativeKeyEvent e) {
         if (linkedElement.get() != null && mnemonic.get() != null) {
             if ((e.getModifiers() & NativeKeyEvent.ALT_MASK) != 0 && (Character.toLowerCase(mnemonic.get()) + "").equals(NativeKeyEvent.getKeyText(e.getKeyCode()))) {
-                linkedElement.get().setFocused(true);
+                linkedElement.get().requestFocus();
                 return true;
             }
         }
 
-        return false;
+        return super.onKey(e);
     }
 
     @Override

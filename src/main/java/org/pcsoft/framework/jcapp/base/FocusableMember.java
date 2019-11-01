@@ -1,10 +1,11 @@
 package org.pcsoft.framework.jcapp.base;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 
 public interface FocusableMember {
-    void setFocused(boolean focus);
-    BooleanProperty focusedProperty();
+    void requestFocus();
+    ReadOnlyBooleanProperty focusedProperty();
     boolean isFocused();
 
     void setFocusable(boolean focusable);

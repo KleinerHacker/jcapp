@@ -1,6 +1,5 @@
 package org.pcsoft.framework.jcapp.element.frame;
 
-import org.jnativehook.keyboard.NativeKeyEvent;
 import org.pcsoft.framework.jcapp.style.frame.JCPopupStyle;
 import org.pcsoft.framework.jcapp.style.theme.JCTheme;
 import org.pcsoft.framework.jcapp.type.JCBounds;
@@ -35,11 +34,6 @@ public final class JCPopup extends JCFrame<JCPopupStyle> {
     protected void remeasure(JCBounds bounds) {
         setWidth(getPrefWidth());
         setHeight(getPrefHeight());
-    }
-
-    @Override
-    protected boolean onKey(NativeKeyEvent nativeKeyEvent) {
-        return false;
     }
 
     @Override

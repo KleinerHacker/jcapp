@@ -3,6 +3,7 @@ package org.pcsoft.framework.jcapp;
 import org.pcsoft.framework.jcapp.element.JCStatusBar;
 import org.pcsoft.framework.jcapp.element.component.JCCheckBox;
 import org.pcsoft.framework.jcapp.element.component.JCLabel;
+import org.pcsoft.framework.jcapp.element.component.JCRadioButton;
 import org.pcsoft.framework.jcapp.element.frame.JCDialog;
 import org.pcsoft.framework.jcapp.element.menu.JCMenu;
 import org.pcsoft.framework.jcapp.element.menu.JCMenuBar;
@@ -63,6 +64,11 @@ public class JCApplicationTest extends JCApplication {
         JCAnchorPane.setLeft(checkBox, 1);
         JCAnchorPane.setTop(checkBox, 2);
         pane.getChildren().add(checkBox);
+
+        final JCRadioButton radioButton = new JCRadioButton("A Radio Button", 'R');
+        JCAnchorPane.setLeft(radioButton, 1);
+        JCAnchorPane.setTop(radioButton, 3);
+        pane.getChildren().add(radioButton);
 
         dialog.setContent(pane);
         dialog.setVisible(true);
